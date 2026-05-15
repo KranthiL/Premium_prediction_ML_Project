@@ -100,7 +100,7 @@ def handle_scaling(age, df):
         scaler_object = scaler_rest
 
     cols_to_scale = scaler_object['cols_to_scale']
-    scaler = scaler_object['scalar']
+    scaler = scaler_object['scaler']
 
     df['income_level'] = None # since scaler object expects income_level supply it. This will have no impact on anything
     df[cols_to_scale] = scaler.transform(df[cols_to_scale])
