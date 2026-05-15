@@ -8,7 +8,7 @@ import joblib
 model_young = joblib.load("artifacts/model_young.joblib")
 model_rest = joblib.load("artifacts/model_rest.joblib")
 
-scaler_young = joblib.load("artifacts/scalar_young.joblib")
+scaler_young = joblib.load("artifacts/scaler_young.joblib")
 scaler_rest = joblib.load("artifacts/scaler_rest.joblib")
 
 
@@ -52,14 +52,14 @@ def calculate_normalized_risk(medical_history):
 def preprocess_input(input_dict):
 
     # IMPORTANT:
-    # genetical_risc is intentionally misspelled
+    # genetical_risk is intentionally misspelled
     # because trained scaler/model expects this column
     expected_columns = [
         'age',
         'number_of_dependants',
         'income_lakhs',
         'insurance_plan',
-        'genetical_risc',
+        'genetical_risk',
         'normalized_risk_score',
         'gender_Male',
         'region_Northwest',
@@ -168,7 +168,7 @@ def preprocess_input(input_dict):
         # IMPORTANT TYPO COLUMN
         elif key == 'Genetical Risk':
 
-            df['genetical_risc'] = int(value)
+            df['genetical_risk'] = int(value)
 
     # =====================================================
     # RISK SCORE
@@ -217,7 +217,7 @@ def handle_scaling(age, df):
             'number_of_dependants',
             'income_lakhs',
             'insurance_plan',
-            'genetical_risc',
+            'genetical_risk',
             'normalized_risk_score'
         ]
 
