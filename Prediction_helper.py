@@ -257,12 +257,31 @@ def predict(input_dict):
 
     input_df = preprocess_input(input_dict)
 
+    # =====================================================
+    # FIX COLUMN ORDER ISSUE
+    # =====================================================
+
     if int(input_dict['Age']) <= 25:
 
-        prediction = model_young.predict(input_df)
+        model = model_young
 
     else:
 
-        prediction = model_rest.predict(input_df)
+        model = model_rest
+
+    # Get expected columns from model
+    expected_columns = model.feature_names_in_
+
+    # Add missing columns
+    for col in expected_columns:
+
+        if col not in input_df.columns:
+            input_df[col] = 0
+
+    # Remove extra columns
+    input_df = input_df[expected_columns]
+
+    # Predict
+    prediction = model.predict(input_df)
 
     return int(prediction[0])
